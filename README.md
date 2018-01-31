@@ -28,3 +28,4 @@ it makes disappear the link OIDC from the interface when CAS ldap authentication
 ### **TO DO**
 
 - Make it a CAS module, in order to add it as a dependency
+- Use [jitpack](https://jitpack.io/) in order to automatise maven repository, take example on [EsupPortail/cas-server-support-esupotp](https://github.com/EsupPortail/cas-server-support-esupotp)
