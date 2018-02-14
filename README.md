@@ -16,8 +16,7 @@ Now install [EsupPortail/claExternalID](https://github.com/EsupPortail/claExtern
 
 - DefaultRegisteredServiceAccessStrategy needs to be modify in order to change private to protected function
 
-- This module Override the bean "authenticationExceptionHandler" and apply 
-- UP1AuthenticationExceptionHandlerAction" instead, the replacement is done in configuration.
+- This module Override the bean "authenticationExceptionHandler" and apply UP1AuthenticationExceptionHandlerAction" instead, the replacement is done in configuration.
 
 - It will throw an exception that will be catch by the ExceptionHandler, the handler will after replace the 
 "unauthorizedRedirectUrl" by adding the principal attributes and service target to it.
