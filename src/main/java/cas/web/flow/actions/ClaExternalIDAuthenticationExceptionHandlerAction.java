@@ -2,18 +2,14 @@ package org.esupportail.cas.web.flow.actions;
 
 import org.apereo.cas.authentication.AuthenticationException;
 import org.apereo.cas.services.UnauthorizedServiceForPrincipalException;
-import org.apereo.cas.ticket.AbstractTicketException;
 import org.apereo.cas.web.flow.actions.AuthenticationExceptionHandlerAction;
 import org.apereo.cas.web.flow.CasWebflowConstants;
 import org.apereo.cas.web.support.WebUtils;
 import org.esupportail.cas.services.ClaExternalIDPrincipalException;
-import org.esupportail.cas.services.ClaExternalIDUnauthorizedServiceForPrincipalException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.binding.message.MessageBuilder;
 import org.springframework.binding.message.MessageContext;
-import org.springframework.webflow.action.AbstractAction;
-import org.springframework.webflow.action.EventFactorySupport;
 import org.springframework.webflow.execution.Event;
 import org.springframework.webflow.execution.RequestContext;
 import org.springframework.util.MultiValueMap;
@@ -23,8 +19,6 @@ import org.springframework.web.util.UriComponents;
 
 import java.lang.Iterable;
 import java.net.URI;
-import java.util.LinkedHashSet;
-import java.util.Optional;
 import java.util.Set;
 import java.util.Map;
 
@@ -66,7 +60,7 @@ public class ClaExternalIDAuthenticationExceptionHandlerAction extends Authentic
             }
         }
         
-        if (e.getHandlerErrors().containsKey(ClaExternalIDUnauthorizedServiceForPrincipalException.class.getSimpleName())) {
+        if (e instanceof ClaExternalIDPrincipalException) {
             if (url != null) {
                 final ClaExternalIDPrincipalException eClaExternalID = (ClaExternalIDPrincipalException) e;
                 final URI url2 = getUrl(url, eClaExternalID.getPrincipalAttributes(), WebUtils.getService(requestContext).getOriginalUrl());
@@ -97,15 +91,15 @@ public class ClaExternalIDAuthenticationExceptionHandlerAction extends Authentic
      * Create an URI object with attributes as paramaters in it
      */
     protected URI getUrl(final URI uri, final Map<String, Object> principalAttributes, final String target){
-        MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<String, String>();
+        MultiValueMap queryParams = new LinkedMultiValueMap<String, String>();
         
         principalAttributes.forEach((key, i) -> {
             if(i instanceof Iterable){
                 for (Object y : (Iterable) i) {
-                    queryParams.add(key, (String) y);
+                    queryParams.add(key, y);
                 }
             } else {
-                queryParams.add(key, (String) i);
+                queryParams.add(key, i);
             }
         });
         queryParams.add("target", target);
