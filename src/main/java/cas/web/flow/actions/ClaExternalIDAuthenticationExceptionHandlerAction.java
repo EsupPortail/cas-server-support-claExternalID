@@ -33,7 +33,7 @@ public class ClaExternalIDAuthenticationExceptionHandlerAction extends Authentic
     
     private static final Logger LOGGER = LoggerFactory.getLogger(ClaExternalIDAuthenticationExceptionHandlerAction.class);
 
-    public ClaExternalIDAuthenticationExceptionHandlerAction(final Set<Class<? extends Exception>> errors) {
+    public ClaExternalIDAuthenticationExceptionHandlerAction(final Set<Class<? extends Throwable>> errors) {
         super(errors);
     }
 

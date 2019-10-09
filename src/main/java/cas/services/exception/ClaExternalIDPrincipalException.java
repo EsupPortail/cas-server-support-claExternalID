@@ -1,7 +1,7 @@
 package org.esupportail.cas.services;
 
 import org.apereo.cas.authentication.PrincipalException;
-import org.apereo.cas.authentication.HandlerResult;
+import org.apereo.cas.authentication.AuthenticationHandlerExecutionResult;
 
 import java.util.Map;
 
@@ -25,8 +25,8 @@ public class ClaExternalIDPrincipalException extends PrincipalException {
      */
     public ClaExternalIDPrincipalException(
             final String message,
-            final Map<String, Class<? extends Throwable>> handlerErrors,
-            final Map<String, HandlerResult> handlerSuccesses,
+            final Map<String, Throwable> handlerErrors,
+            final Map<String, AuthenticationHandlerExecutionResult> handlerSuccesses,
             final Map<String, Object> principalAttributes) {
         super(message, handlerErrors, handlerSuccesses);
         setPrincipalAttributes(principalAttributes);

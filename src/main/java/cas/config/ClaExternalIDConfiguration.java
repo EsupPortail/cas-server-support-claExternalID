@@ -43,7 +43,7 @@ public class ClaExternalIDConfiguration {
         return new ClaExternalIDAuthenticationExceptionHandlerAction(handledAuthenticationExceptions());
     }
     
-    public Set<Class<? extends Exception>> handledAuthenticationExceptions() {
+    public Set<Class<? extends Throwable>> handledAuthenticationExceptions() {
         /*
          * Order is important here; We want the account policy exceptions to be handled
          * first before moving onto more generic errors. In the event that multiple handlers
@@ -51,7 +51,7 @@ public class ClaExternalIDConfiguration {
          * due to a bad password, we want the error associated with the account policy
          * to be processed first, rather than presenting a more generic error associated
          */
-        final Set<Class<? extends Exception>> errors = new LinkedHashSet<>();
+        final Set<Class<? extends Throwable>> errors = new LinkedHashSet<>();
         errors.add(javax.security.auth.login.AccountLockedException.class);
         errors.add(javax.security.auth.login.CredentialExpiredException.class);
         errors.add(javax.security.auth.login.AccountExpiredException.class);
