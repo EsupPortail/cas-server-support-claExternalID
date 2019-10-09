@@ -17,6 +17,7 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.web.util.UriComponentsBuilder;
 import org.springframework.web.util.UriComponents;
 
+import java.io.IOException;
 import java.lang.Iterable;
 import java.net.URI;
 import java.util.Set;
@@ -64,10 +65,13 @@ public class ClaExternalIDAuthenticationExceptionHandlerAction extends Authentic
             if (url != null) {
                 final ClaExternalIDPrincipalException eClaExternalID = (ClaExternalIDPrincipalException) e;
                 final URI url2 = getUrl(url, eClaExternalID.getPrincipalAttributes(), WebUtils.getService(requestContext).getOriginalUrl());
-                WebUtils.putUnauthorizedRedirectUrlIntoFlowScope(requestContext, url2);
-                
+
                 LOGGER.warn("Unauthorized service access for principal; CAS will be redirecting to [{}]", url2);
-                return CasWebflowConstants.STATE_ID_SERVICE_UNAUTHZ_CHECK;
+                try {
+                    WebUtils.getHttpServletResponseFromExternalWebflowContext(requestContext).sendRedirect(url2.toString());               
+                } catch (IOException e_) {
+                    LOGGER.error("internal error", e_);
+                }
             }
         }
 
