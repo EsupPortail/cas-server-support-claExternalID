@@ -1,7 +1,8 @@
 package org.apereo.cas.web.flow.resolver.impl;
 
 import lombok.Setter;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.apereo.cas.CentralAuthenticationService;
 import org.apereo.cas.audit.AuditableContext;
 import org.apereo.cas.audit.AuditableExecution;
@@ -44,12 +45,13 @@ import java.util.stream.Collectors;
  * which handles the initial authentication attempt and calls upon a number of
  * embedded resolvers to produce the next event in the authentication flow.
  *
- * @author Misagh Moayyed
- * @since 5.0.0
+ * @author Boris Goming
  */
-@Slf4j
 @Setter
 public class InitialAuthenticationAttemptWebflowEventResolver extends AbstractCasWebflowEventResolver implements CasDelegatingWebflowEventResolver {
+
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(InitialAuthenticationAttemptWebflowEventResolver.class);
 
     private final List<CasWebflowEventResolver> orderedResolvers = new ArrayList<>();
 
@@ -133,7 +135,7 @@ public class InitialAuthenticationAttemptWebflowEventResolver extends AbstractCa
                 .service(service)
                 .authentication(authn)
                 .registeredService(registeredService)
-                .retrievePrincipalAttributesFromReleasePolicy(Boolean.FALSE)
+                .retrievePrincipalAttributesFromReleasePolicy(Boolean.TRUE)// attributesReleasePolicy mis à TRUE avant traitement données FranceConnect.
                 .build();
             final AuditableExecutionResult result = this.registeredServiceAccessStrategyEnforcer.execute(audit);
             result.throwExceptionIfNeeded();
