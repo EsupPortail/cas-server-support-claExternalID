@@ -2553,6 +2553,7 @@ select.form-control-lg:not([size]):not([multiple]), .input-group-lg > select.for
   transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
   transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
   transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
+  margin: auto;
 }
 
 @media screen and (prefers-reduced-motion: reduce) {
@@ -3422,7 +3423,8 @@ fieldset:disabled a.btn {
 
 .btn-block {
   display: block;
-  width: 100%;
+  width: 40%;
+  height: 58px;
 }
 
 .btn-block + .btn-block {
@@ -11356,9 +11358,8 @@ fieldset[disabled] .btn-saml2.focus {
 }
 
 .btn-oidc {
-  background-color: #f7931e;
+  background-color: #8f9fa;
   color: #fff;
-  background-color: #f7931e;
   border-color: rgba(0, 0, 0, 0.2);
 }
 
