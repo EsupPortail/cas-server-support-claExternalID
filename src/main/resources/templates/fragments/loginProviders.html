@@ -38,7 +38,9 @@
                                 <span th:case="dropbox" class="fab fa-dropbox"></span>
                                 <span th:case="linkedin" class="fab fa-linkedin"></span>
                                 <span th:case="facebook" class="fab fa-facebook-square"></span>
-                                <span th:case="oidc" class="fab fa-openid"></span>
+                                <span th:case="oidc">
+					<img th:src="@{images/FCboutons-10.png}" alt="FranceConnect">
+				</span>
 
                                 [[${entry.name}]]
                             </a>
