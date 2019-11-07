@@ -125,6 +125,33 @@
                 <!--
                 ...Additional dependencies may be placed here...
                 -->
+               <!-- FranceConnect : Réconciliationn d'identités. -->
+               <dependency>
+                    <groupId>org.apereo.cas</groupId>
+                    <artifactId>cas-server-core-web-api</artifactId>
+                    <version>${cas.version}</version>
+               </dependency>
+               <dependency>
+                    <groupId>org.apereo.cas</groupId>
+                    <artifactId>cas-server-core-webflow-api</artifactId>
+                    <version>${cas.version}</version>
+               </dependency>
+               <dependency>
+                    <groupId>org.apereo.cas</groupId>
+                    <artifactId>cas-server-core-util-api</artifactId>
+                    <version>${cas.version}</version>
+               </dependency>
+               <dependency>
+                    <groupId>javax.servlet</groupId>
+                    <artifactId>servlet-api</artifactId>
+                    <version>2.5</version>
+               </dependency>
+               <dependency>
+                    <groupId>org.projectlombok</groupId>
+                    <artifactId>lombok</artifactId>
+                    <version>1.18.10</version>
+               </dependency>
+               <!-- FranceConnect : Fin. -->
             </dependencies>
         </profile>
 
