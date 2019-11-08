@@ -1,7 +1,8 @@
 package org.apereo.cas.services;
 
 import lombok.experimental.UtilityClass;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.apache.commons.lang3.StringUtils;
 import org.apereo.cas.authentication.Authentication;
 import org.apereo.cas.authentication.AuthenticationResult;
@@ -21,13 +22,14 @@ import java.util.Map;
  * This is a support utility class that acts as a façade around common authorization
  * and access strategy presented in CAS.
  *
- * @author Misagh Moayyed
- * @author Dmitriy Kopylenko
- * @since 5.0.0
+ * @author Aymar Anli
+ *
  */
-@Slf4j
 @UtilityClass
 public class RegisteredServiceAccessStrategyUtils {
+
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(RegisteredServiceAccessStrategyUtils.class);
 
     /**
      * Ensure service access is allowed.
@@ -80,6 +82,10 @@ public class RegisteredServiceAccessStrategyUtils {
                                                          final String principalId,
                                                          final Map<String, Object> attributes) {
         ensureServiceAccessIsAllowed(service, registeredService);
+
+	if(service!=null)
+	    attributes.put("ServiceTarget", service.getId());
+
         if (!registeredService.getAccessStrategy().doPrincipalAttributesAllowServiceAccess(principalId, attributes)) {
             LOGGER.warn("Cannot grant access to service [{}] because it is not authorized for use by [{}].", service.getId(), principalId);
             final Map<String, Throwable> handlerErrors = new HashMap<>();
@@ -122,7 +128,6 @@ public class RegisteredServiceAccessStrategyUtils {
                                                          final boolean retrievePrincipalAttributesFromReleasePolicy)
         throws UnauthorizedServiceException, PrincipalException {
         ensureServiceAccessIsAllowed(service, registeredService);
-
         final Principal principal = authentication.getPrincipal();
         final Map<String, Object> principalAttrs;
         if (retrievePrincipalAttributesFromReleasePolicy && registeredService != null && registeredService.getAttributeReleasePolicy() != null) {
@@ -201,7 +206,7 @@ public class RegisteredServiceAccessStrategyUtils {
                                                        final TicketGrantingTicket ticketGrantingTicket) {
         ensureServiceSsoAccessIsAllowed(registeredService, service, ticketGrantingTicket, false);
     }
-    
+
     /**
      * Ensure service sso access is allowed.
      *
